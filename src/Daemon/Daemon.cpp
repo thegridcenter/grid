@@ -402,8 +402,8 @@ command_line::add_arg(desc_cmd_sett, arg_print_genesis_tx);
         std::cout << "Configuration error: Cannot open configuration file" << std::endl;
         std::cout << "" << std::endl;
         std::cout << "Usage:" << std::endl;
-        std::cout << "Windows:   forknoted.exe --config-file configs/dashcoin.conf" << std::endl;
-        std::cout << "Linux/Mac:   ./forknoted --config-file configs/dashcoin.conf" << std::endl;
+        std::cout << "Windows:   grid.exe --config-file configs/grid.conf" << std::endl;
+        std::cout << "Linux/Mac:   ./grid --config-file configs/grid.conf" << std::endl;
         return false;
       }
       po::notify(vm);
@@ -437,7 +437,12 @@ command_line::add_arg(desc_cmd_sett, arg_print_genesis_tx);
     // configure logging
     logManager.configure(buildLoggerConfiguration(cfgLogLevel, cfgLogFile));
 
-    logger(INFO) << CryptoNote::CRYPTONOTE_NAME << " v" << PROJECT_VERSION_LONG;
+    logger(INFO) << "
+|_   _| |__   ___   / ___|_ __(_) __| |  / ___|___ _ __ | |_ ___ _ __ 
+  | | | '_ \ / _ \ | |  _| '__| |/ _` | | |   / _ \ '_ \| __/ _ \ '__|
+  | | | | | |  __/ | |_| | |  | | (_| | | |__|  __/ | | | ||  __/ |   
+  |_| |_| |_|\___|  \____|_|  |_|\__,_|  \____\___|_| |_|\__\___|_|   
+                                                                      ";
 
     if (command_line_preprocessor(vm, logger)) {
       return 0;
@@ -452,7 +457,7 @@ command_line::add_arg(desc_cmd_sett, arg_print_genesis_tx);
 
     //create objects and link them
     CryptoNote::CurrencyBuilder currencyBuilder(logManager);
-    currencyBuilder.cryptonoteName(command_line::get_arg(vm, arg_CRYPTONOTE_NAME));
+    currencyBuilder.cryptonoteName(command_line::get_arg(vm, arg_grid);
   currencyBuilder.minMixin(command_line::get_arg(vm, arg_MIN_MIXIN));
 //uint8_t recognized as char
   if (command_line::get_arg(vm, arg_MANDATORY_MIXIN_BLOCK_VERSION) == 0) {
@@ -560,7 +565,7 @@ if (command_line::has_arg(vm, arg_CHECKPOINT) && checkpoint_args.size() != 0)
 }
 else
 {
-  if (command_line::get_arg(vm, arg_CRYPTONOTE_NAME) == "bytecoin") {
+  if (command_line::get_arg(vm, arg_CRYPTONOTE_NAME) == "grid") {
       checkpoint_input = CryptoNote::CHECKPOINTS;
   }
 }
@@ -679,7 +684,7 @@ bool command_line_preprocessor(const boost::program_options::variables_map &vm, 
   bool exit = false;
 
   if (command_line::get_arg(vm, command_line::arg_version)) {
-    std::cout << CryptoNote::CRYPTONOTE_NAME << " v" << PROJECT_VERSION_LONG << ENDL;
+    std::cout << "grid" << " v" << "1" << ENDL;
     exit = true;
   }
   if (command_line::get_arg(vm, arg_os_version)) {
