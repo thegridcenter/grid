@@ -31,8 +31,8 @@ ConsoleLogger::ConsoleLogger(Level level) : CommonLogger(level) {
 void ConsoleLogger::doLogString(const std::string& message) {
   std::lock_guard<std::mutex> lock(mutex);
   bool readingText = true;
-  bool changedColor = false;
-  std::string color = "";
+  bool changedColor = true;
+  std::string color = "BrightBlue";
 
   static std::unordered_map<std::string, Color> colorMapping = {
     { BLUE, Color::Blue },
@@ -60,7 +60,7 @@ void ConsoleLogger::doLogString(const std::string& message) {
       color += message[charPos];
       if (readingText) {
         auto it = colorMapping.find(color);
-        Common::Console::setTextColor(it == colorMapping.end() ? Color::Default : it->second);
+        Common::Console::setTextColor(it == colorMapping.end() ? Color::BrightBlue : it->second);
         changedColor = true;
         color.clear();
       }
@@ -72,7 +72,7 @@ void ConsoleLogger::doLogString(const std::string& message) {
   }
 
   if (changedColor) {
-    Common::Console::setTextColor(Color::Default);
+    Common::Console::setTextColor(Color::BrightBlue);
   }
 }
 
